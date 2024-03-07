@@ -19,7 +19,7 @@ instance.interceptors.request.use(
   }
 );
 
-// Response interceptor
+// Response intercepto
 instance.interceptors.response.use(
   (response) => {
     // Any status code within the range of 2xx causes this function to trigger
