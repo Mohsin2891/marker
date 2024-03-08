@@ -1,11 +1,14 @@
+import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useParams } from "react-router-dom";
+import axiosInstance from 'utils/axios';
 
 const MovieInfo = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    // Fetch movie details using the "id"
+    axiosInstance
+
   }, [id]);
 
   return (
