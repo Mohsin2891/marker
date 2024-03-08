@@ -24,7 +24,7 @@ export const MoviesListing = () => {
       <div class="container mx-auto p-4">
         <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {movies?.map((movie) => (
-            <Link to={`/movies/${movie.id}`} key={movie.id}>
+            <Link to={`/movie/${movie.id}`} key={movie.id}>
               <MovieCard
                 original_language={movie?.original_language}
                 original_title={movie?.original_title}
@@ -35,7 +35,6 @@ export const MoviesListing = () => {
                 video={movie?.video}
                 vote_average={movie?.vote_average}
                 vote_count={movie?.vote_count}
-             
               />
             </Link>
           ))}

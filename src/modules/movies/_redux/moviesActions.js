@@ -1,11 +1,12 @@
-import { moviesManagementSlice } from "./moviesManagementSlice";
-import * as questionnaireServices from "./questionnaireServices";
-const actions = moviesManagementSlice.actions;
-export const createQuestionnaire = (onSuccess, onError) => async (dispatch) => {
+import { moviesSlice } from "./moviesSlice";
+import * as moviesServices from "./moviesService";
+const actions = moviesSlice.actions;
+
+export const getMovieById = (id, onSuccess) => async (dispatch) => {
   try {
-    const res = await questionnaireServices.create(formData);
-    onSuccess(res);
+    const res = await moviesServices.getMovieById(id);
+    dispatch(actions.selectedMovie(res));
   } catch (error) {
-    onError(error);
+    throw new Error(error?.response?.data?.message);
   }
 };

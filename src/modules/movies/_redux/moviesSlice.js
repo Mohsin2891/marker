@@ -7,12 +7,10 @@ const initialmoviesManagementState = {
   listLoading: false,
   totalResults: null,
   actionLoading: false,
-  questionnaires: [],
-  allQuestionnaire: null,
-  selectedQuestionnaire: null,
+  selectedMovie: null,
 };
 
-export const questionnaireManagementSlice = createSlice({
+export const moviesSlice = createSlice({
   name: "moviesManagementSlice",
   initialState: initialmoviesManagementState,
   reducers: {
@@ -29,6 +27,9 @@ export const questionnaireManagementSlice = createSlice({
       } else {
         state.listLoading = false;
       }
+    },
+    selectedMovie: (state, action) => {
+      state.selectedMovie = action.payload.data;
     },
   },
 });
