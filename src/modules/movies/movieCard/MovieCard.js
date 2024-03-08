@@ -1,6 +1,7 @@
 import React from "react";
 
 const MovieCard = ({
+  id,
   original_language,
   original_title,
   overview,
@@ -12,8 +13,16 @@ const MovieCard = ({
   vote_average,
   vote_count,
 }) => {
+  const handleCardClick = () => {
+    console.log(`Navigate to movie detail page with ID: ${id}`);
+   
+  };
   return (
-    <div className="max-w-sm rounded-lg overflow-hidden shadow-lg bg-white dark:bg-gray-800">
+    
+    <div
+      className="max-w-sm rounded-lg overflow-hidden shadow-lg bg-white dark:bg-gray-800 cursor-pointer"
+      onClick={handleCardClick}
+    >
       <img
         className="w-full h-96 object-cover"
         src={`https://image.tmdb.org/t/p/original${poster}`}
