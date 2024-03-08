@@ -2,16 +2,21 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getMovieById } from "../_redux/moviesActions";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
+import { moviesSlice } from "../_redux/moviesSlice";
+const actions = moviesSlice?.actions;
 const MovieInfo = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
 
   useEffect(() => {
     dispatch(getMovieById(id));
+    return () => {
+      dispatch(actions?.selectedMovie(null));
+    };
   }, [id]);
 
   const { selectedMovie } = useSelector((state) => state?.movies, shallowEqual);
-  console.log(selectedMovie);
+
   return (
     <div className="bg-gray-900 text-white min-h-screen flex flex-col">
       <div className="container mx-auto px-4 py-8 flex flex-1">
@@ -49,14 +54,6 @@ const MovieInfo = () => {
                 <strong>Overview:</strong> {selectedMovie?.overview}
               </div>
             </div>
-            <a
-              href={selectedMovie?.homepage}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110"
-            >
-              Visit Official Site
-            </a>
           </div>
         </div>
       </div>

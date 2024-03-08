@@ -426,7 +426,7 @@ export const Navbar = () => {
             <div className="mr-10 flex items-center">
               <img src={logo} alt={"Logo Img"} />
               <h3 className="text-base text-gray-800 font-bold tracking-normal leading-tight ml-3 hidden lg:block">
-                OMDB
+                TMDB
               </h3>
             </div>
             <ul className="pr-32 xl:flex hidden items-center h-full">

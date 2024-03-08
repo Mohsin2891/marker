@@ -1,7 +1,11 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useSelector, shallowEqual, useDispatch } from "react-redux";
+import { moviesSlice } from "modules/movies/_redux/moviesSlice";
+import { useNavigate } from "react-router-dom";
+const actions = moviesSlice.actions;
 
 const MovieCard = ({
+  id,
   original_language,
   original_title,
   overview,
@@ -14,8 +18,15 @@ const MovieCard = ({
   vote_count,
   movie,
 }) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   return (
-    <div className="max-w-sm rounded-lg overflow-hidden shadow-lg bg-white dark:bg-gray-800 cursor-pointer">
+    <div
+      className="max-w-sm rounded-lg overflow-hidden shadow-lg bg-white dark:bg-gray-800 cursor-pointer"
+      onClick={() => {
+        navigate(`/movie/${id}`);
+      }}
+    >
       <img
         className="w-full h-96 object-cover"
         src={`https://image.tmdb.org/t/p/original${poster}`}

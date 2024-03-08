@@ -1,48 +1,62 @@
-import React from "react";
+import React, { useState } from "react";
 
-const Pagination = ({ currentPage = 1, totalPages = 10, onPageChange }) => {
+const Pagination = ({ itemsPerPage, totalItems, setPage, currentPage }) => {
   const pageNumbers = [];
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   for (let i = 1; i <= totalPages; i++) {
     pageNumbers.push(i);
   }
 
+  // Limit the number of page links shown for navigation
+  const maxPageNumbersToShow = 5;
+  let startPage = currentPage - Math.floor(maxPageNumbersToShow / 2);
+  startPage = Math.max(startPage, 1);
+  let endPage = startPage + maxPageNumbersToShow - 1;
+  endPage = Math.min(endPage, totalPages);
+
+  if (totalPages <= maxPageNumbersToShow) {
+    startPage = 1;
+    endPage = totalPages;
+  }
+
   return (
-    <nav aria-label="Page navigation example">
-      <ul className="flex items-center -space-x-px h-8 text-sm">
-        <li>
-          <button
-            onClick={() => onPageChange(currentPage - 1)}
-            className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-            disabled={currentPage === 1}
+    <nav>
+      <ul className="flex list-reset border border-grey-light rounded w-auto font-sans">
+        <li className={`page-item ${currentPage === 1 ? "hidden" : ""}`}>
+          <a
+            onClick={() => setPage(currentPage - 1)}
+            className="block py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-200"
           >
-            <span className="sr-only">Previous</span>
-            {/* SVG for Previous Icon */}
-          </button>
+            Previous
+          </a>
         </li>
-        {pageNumbers.map((number) => (
-          <li key={number}>
-            <button
-              onClick={() => onPageChange(number)}
-              className={`flex items-center justify-center px-3 h-8 leading-tight ${
-                currentPage === number
-                  ? "text-blue-600 border-blue-300 bg-blue-50"
-                  : "text-gray-500 bg-white border-gray-300"
-              } hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}
+        {pageNumbers.slice(startPage - 1, endPage).map((number) => (
+          <li
+            key={number}
+            className={`page-item ${
+              currentPage === number
+                ? "bg-blue-500 text-white"
+                : "text-blue-500"
+            }`}
+          >
+            <a
+              onClick={() => setPage(number)}
+              className="block py-2 px-3 leading-tight bg-white border border-gray-300 hover:bg-blue-500 hover:text-white"
             >
               {number}
-            </button>
+            </a>
           </li>
         ))}
-        <li>
-          <button
-            onClick={() => onPageChange(currentPage + 1)}
-            className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-            disabled={currentPage === totalPages}
+        <li
+          className={`page-item ${currentPage === totalPages ? "hidden" : ""}`}
+        >
+          <a
+            onClick={() => setPage(currentPage + 1)}
+            className="block py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-200"
           >
-            <span className="sr-only">Next</span>
-            {/* SVG for Next Icon */}
-          </button>
+            Next
+          </a>
         </li>
       </ul>
     </nav>

@@ -8,6 +8,7 @@ const initialmoviesManagementState = {
   totalResults: null,
   actionLoading: false,
   selectedMovie: null,
+  allMovies: [],
 };
 
 export const moviesSlice = createSlice({
@@ -29,7 +30,14 @@ export const moviesSlice = createSlice({
       }
     },
     selectedMovie: (state, action) => {
-      state.selectedMovie = action.payload.data;
+      state.selectedMovie = action.payload?.data;
+    },
+    setAllMovies: (state, action) => {
+      const { page, results, total_results, total_pages } = action.payload;
+      state.allMovies = results;
+      state.page = page;
+      state.totalPages = total_pages;
+      state.totalResults = total_results;
     },
   },
 });
