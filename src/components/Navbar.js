@@ -1,5 +1,6 @@
 import { useState } from "react";
 import logo from "../assets/logo.png";
+import axios from "../utils/axios";
 export const Navbar = () => {
   const [show, setShow] = useState(false);
   const [product, setProduct] = useState(false);

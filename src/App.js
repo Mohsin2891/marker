@@ -1,3 +1,4 @@
+import { MoviesListing } from "modules/movies/MoviesListing";
 import React from "react";
 
 import { Navbar } from "./components/Navbar";
@@ -6,6 +7,7 @@ export default function IndexPage() {
     <>
       <div className="bg-gray-200 pb-10">
         <Navbar />
+
         {/* Page title starts */}
         <div className="bg-gray-800 pt-8 pb-16 relative z-10">
           <div className="container px-6 mx-auto flex flex-col lg:flex-row items-start lg:items-center justify-between">
@@ -51,8 +53,8 @@ export default function IndexPage() {
         {/* Page title ends */}
         <div className="container px-6 mx-auto">
           {/* Remove class [ h-64 ] when adding a card block */}
-          <div className="rounded shadow relative bg-white z-10 -mt-8 mb-8 w-full h-64">
-            {/* Place your content here */}
+          <div className="rounded shadow relative bg-white z-10 -mt-8 mb-8 w-full  ">
+            <MoviesListing />
           </div>
         </div>
       </div>

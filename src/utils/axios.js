@@ -1,16 +1,21 @@
 import axios from "axios";
-const instance = axios.create({
-  baseURL: "https://api.themoviedb.org",
+
+// Create an Axios instance
+const axiosInstance = axios.create({
+  baseURL: process.env.REACT_APP_BACKEND_URL,
+  // You can add common headers or settings here
 });
+
 // Request interceptor
-instance.interceptors.request.use(
+axiosInstance.interceptors.request.use(
   (config) => {
     // Perform actions before request is sent
-    // For example, adding an authorization token
+    // For example, adding an authentication token
     const token = localStorage.getItem("token");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+
     return config;
   },
   (error) => {
@@ -19,22 +24,24 @@ instance.interceptors.request.use(
   }
 );
 
-// Response intercepto
-instance.interceptors.response.use(
+// Response interceptor
+axiosInstance.interceptors.response.use(
   (response) => {
-    // Any status code within the range of 2xx causes this function to trigger
+    // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
     return response;
   },
   (error) => {
-    // Any status codes that fall outside the range of 2xx cause this function to trigger
+    // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
-    // For example, redirecting to login if response status is 401 (Unauthorized)
+    // For example, redirecting to login on a 401 error
     if (error.response && error.response.status === 401) {
-      // Redirect to login or perform other actions
+      // Handle 401 error
+      window.location.href = "/login";
     }
+
     return Promise.reject(error);
   }
 );
 
-export default instance;
+export default axiosInstance;
