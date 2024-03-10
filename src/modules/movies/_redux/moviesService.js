@@ -1,12 +1,6 @@
 import axios from "../../../utils/axios";
 export const getMovies = async (params) => {
-  const { include_adult, include_video, language, page, sort_by, sortOrder } =
-    params;
-  debugger;
-  const movies = await axios.get(
-    //    `/discover/movie?include_adult=false&include_video=false&language=en-US&page=2&sort_by=popularity.desc`
-    `/discover/movie?include_adult=${include_adult}&include_video=${include_video}&language=${language}&page=${page}&sort_by=${sort_by}.${sortOrder}`
-  );
+  const movies = await axios.get(params);
 
   return movies;
 };
@@ -14,3 +8,18 @@ export const getMovies = async (params) => {
 export const getMovieById = async (id) => {
   return await axios.get(`/movie/${id}`);
 };
+
+export const addMovie = async (payload) => {
+  try {
+    return await axios.post(`/list`, payload);
+  } catch (error) {
+    return error;
+  }
+};
+export const getMoviesByFilter = async (params)=>{
+  return await axios.get(params)
+}
+
+export const searchMovie = async (params)=>{
+  return await axios.get(params)
+}

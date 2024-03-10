@@ -19,3 +19,28 @@ export const getMovieById = (id, onSuccess) => async (dispatch) => {
     throw new Error(error?.response?.data?.message);
   }
 };
+
+
+export const getMoviesByFilter = (params) => async (dispatch) => {
+  try {
+    const res = await moviesServices.getMoviesByFilter(params);
+
+    dispatch(actions.setAllMovies(res?.data));
+  } catch (error) {
+    throw new Error(error?.response?.data?.message);
+  }
+};
+
+
+export const searchMovie = (params) => async (dispatch) => {
+  try {dispatch(actions?.startCall("action"))
+    const res = await moviesServices.searchMovie(params);
+
+    dispatch(actions.setAllMovies(res?.data));
+    dispatch(actions?.stopCall("action"))
+  } catch (error) {
+    dispatch(actions?.startCall("action"))
+
+    throw new Error(error?.response?.data?.message);
+  }
+};
