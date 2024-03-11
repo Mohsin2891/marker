@@ -62,7 +62,7 @@ const CreateMovieDialogue = ({ isOpen, setIsOpen }) => {
                     <Field
                       name="name"
                       type="text"
-                      className="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+                      className="form-input mt-1 p-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
                     />
                   </div>
                   <div className="flex flex-col">
