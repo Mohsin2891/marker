@@ -6,9 +6,19 @@ const Person = () => {
 
   return (
     <div>
-      {persons?.map((person) => {
-        <PersonInfo actor={person} />;
-      })}
+      <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5  p-5">
+        {persons?.length > 0
+          ? persons?.map((person) => (
+              <PersonInfo
+                profile_path={person?.profile_path}
+                name={person?.name}
+                gender={person?.gender}
+                known_for_department={person?.known_for_department}
+                popularity={person?.popularity}
+              />
+            ))
+          : "No Actor found!"}
+      </div>
     </div>
   );
 };

@@ -49,7 +49,6 @@ export const getPerson = (payload, onSuccess) => async (dispatch) => {
   try {
     dispatch(actions?.startCall("action"));
     const res = await moviesServices.getPerson(payload);
-
     dispatch(actions.setPerson(res?.data));
     dispatch(actions?.stopCall("action"));
     onSuccess();

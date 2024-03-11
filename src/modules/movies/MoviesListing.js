@@ -1,27 +1,28 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import MovieCard from "./movieCard/MovieCard";
-import { getAllMovies } from "./_redux/moviesActions";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import Pagination from "components/Pagination";
 import SearchModal from "./moviesFilters/MoviesFilters";
 import PersonFilters from "./personfilter/PersonFilters";
 import CreateMoviedialogue from "./createMovie/createMovie";
 import { getMoviesByFilter } from "./_redux/moviesActions";
+//context
+import MoviesContext from "context/Movies";
+
+//utility func
 import toTitleCase from "utils/toTitleCase";
 
-export const MoviesListing = ({
-  getMovieBy,
+const MoviesListing = ({
   shouldPersonModalBeOpen,
-
   setShouldPersonModalBeOpen,
 }) => {
+  const { movieCategory, setMovieCategory, actor, setActor } =
+    useContext(MoviesContext);
   const { allMovies, totalPages, totalResults } = useSelector(
     (state) => state?.movies,
     shallowEqual
   );
-
   const dispatch = useDispatch();
-
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const [sortBy, setSortBy] = useState("popularity");
@@ -32,12 +33,11 @@ export const MoviesListing = ({
   const [sort_by, setSort_by] = useState("popularity");
   const [showCreateMovieDialogue, setShowCreateMovieDialogue] = useState(false);
   const [shouldSearchBeOpen, setShouldSeachModalBeOpen] = useState(false);
+  const [getMovieBy, setGetMovieBy] = useState("popular");
 
+  //fetchting and storing
   useEffect(() => {
-    // let  params = `/discover/movie?include_adult=${include_adult}&include_video=${include_video}&language=${language}&page=${page}&sort_by=${sort_by}.${sortOrder}`;
-    // dispatch(getAllMovies(params));
-
-    const params = `/movie/${getMovieBy}?&language=${language}&page=${page}`;
+    const params = `/movie/${movieCategory}?&language=${language}&page=${page}`;
     dispatch(getMoviesByFilter(params));
   }, [
     page,
@@ -49,6 +49,7 @@ export const MoviesListing = ({
     language,
     sort_by,
     getMovieBy,
+    movieCategory,
     dispatch,
   ]);
 
@@ -65,14 +66,9 @@ export const MoviesListing = ({
             ADD MOVIE
           </button>
           <span className="text-2xl text-blue-500 ">
-            {toTitleCase(getMovieBy)}
+            {toTitleCase(movieCategory)}
           </span>
-          {shouldPersonModalBeOpen && (
-            <PersonFilters
-              isOpen={shouldPersonModalBeOpen}
-              setIsOpen={setShouldPersonModalBeOpen}
-            />
-          )}
+          {actor && <PersonFilters isOpen={actor} setIsOpen={setActor} />}
           <SearchModal
             isOpen={shouldSearchBeOpen}
             setIsOpen={setShouldSeachModalBeOpen}
@@ -101,14 +97,8 @@ export const MoviesListing = ({
         </div>
         {totalResults > 0 && (
           <Pagination
-            //   currentPage={page}
-            //   totalPages={totalPages}
-            //   page={page}
-            //   setPage={setPage}
-            //   limit={limit}
-            //   setLimit={(val) => setLimit(val)}
-            //   totalResults={totalResults}
             itemsPerPage={10}
+            totalPages={totalPages}
             totalItems={totalResults}
             setPage={setPage}
             currentPage={page}
@@ -118,3 +108,4 @@ export const MoviesListing = ({
     </>
   );
 };
+export default MoviesListing;

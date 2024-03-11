@@ -21,7 +21,7 @@ const Pagination = ({ itemsPerPage, totalItems, setPage, currentPage }) => {
   }
 
   return (
-    <nav>
+    <nav className="my-1 w-full  flex justify-end items-center cursor-pointer">
       <ul className="flex list-reset border border-grey-light rounded w-auto font-sans">
         <li className={`page-item ${currentPage === 1 ? "hidden" : ""}`}>
           <a

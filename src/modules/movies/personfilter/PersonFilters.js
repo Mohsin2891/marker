@@ -2,15 +2,9 @@ import React from "react";
 import { Dialog } from "@headlessui/react";
 import { useFormik } from "formik";
 import { IoIosSearch } from "react-icons/io";
-import { searchMovie } from "../_redux/moviesActions";
 import { useNavigate } from "react-router-dom";
 import { getPerson } from "../_redux/moviesActions";
-import {
-  UseDispatch,
-  shallowEqual,
-  useDispatch,
-  useSelector,
-} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const PersonFilters = ({ isOpen, setIsOpen }) => {
   const { actionLoading } = useSelector((state) => state.movies);
@@ -25,8 +19,12 @@ const PersonFilters = ({ isOpen, setIsOpen }) => {
       language: "en-US",
     },
     onSubmit: (values) => {
-      console.log(values);
-      dispatch(getPerson(values?.title, () => navigate("/person")));
+      dispatch(
+        getPerson(values?.title, () => {
+          navigate("/person");
+          setIsOpen(false);
+        })
+      );
     },
   });
 
@@ -71,23 +69,6 @@ const PersonFilters = ({ isOpen, setIsOpen }) => {
                     value={formik.values.title}
                     className="mt-1 block w-full p-5 border-black rounded-md  shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 sm:text-sm"
                   />
-                </div>
-
-                <div className="flex items-center mb-4">
-                  <input
-                    id="isAdult"
-                    name="isAdult"
-                    type="checkbox"
-                    onChange={formik.handleChange}
-                    checked={formik.values.isAdult}
-                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-                  />
-                  <label
-                    htmlFor="isAdult"
-                    className="ml-2 block text-sm text-gray-900"
-                  >
-                    Is Adult
-                  </label>
                 </div>
 
                 <div className="mt-4">

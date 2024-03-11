@@ -12,28 +12,30 @@ const genderText = (genderCode) => {
   }
 };
 
-const PersonInfo = ({ actor }) => {
+const PersonInfo = ({
+  profile_path,
+  name,
+  gender,
+  known_for_department,
+  popularity,
+}) => {
+  debugger;
   return (
     <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white p-4">
-      {actor.profile_path && (
+      {profile_path && (
         <img
           className="w-full"
-          src={`https://image.tmdb.org/t/p/original${actor.profile_path}`}
-          alt={`${actor.name}`}
+          src={`https://image.tmdb.org/t/p/original${profile_path}`}
+          alt={`${name}`}
         />
       )}
       <div className="px-6 py-4">
-        <div className="font-bold text-xl mb-2">{actor.name}</div>
+        <div className="font-bold text-xl mb-2">{name}</div>
+        <p className="text-gray-700 text-base">Gender: {genderText(gender)}</p>
         <p className="text-gray-700 text-base">
-          Gender: {genderText(actor.gender)}
+          Known for: {known_for_department}
         </p>
-        {("actor", actor)}
-        <p className="text-gray-700 text-base">
-          Known for: {actor.known_for_department}
-        </p>
-        <p className="text-gray-700 text-base">
-          Popularity: {actor.popularity}
-        </p>
+        <p className="text-gray-700 text-base">Popularity: {popularity}</p>
       </div>
     </div>
   );

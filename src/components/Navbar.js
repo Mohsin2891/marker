@@ -1,16 +1,18 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import logo from "../assets/logo.png";
-
-import { useDispatch } from "react-redux";
-import { getPerson } from "modules/movies/_redux/moviesActions";
-export const Navbar = ({
-  getMovieBy,
-  setGetMovieBy,
-  setShouldPersonModalBeOpen,
-}) => {
+import MoviesContext from "context/Movies";
+import { useNavigate } from "react-router-dom";
+export const Navbar = () => {
+  const navigate = useNavigate();
+  const { movieCategory, setMovieCategory, actor, setActor } =
+    useContext(MoviesContext);
   const [show, setShow] = useState(false);
+
   const [product, setProduct] = useState(false);
   const [deliverables, setDeliverables] = useState(false);
+
+  console.log("movieCategorymovieCategorymovieCategory", movieCategory);
+
   return (
     <>
       <div
@@ -434,32 +436,41 @@ export const Navbar = ({
             <ul className="w-full xl:flex hidden items-center h-full  ">
               <li
                 className="hover:text-indigo-700 cursor-pointer h-full flex items-center text-sm text-indigo-700 tracking-normal"
-                onClick={() => setGetMovieBy("popular")}
+                onClick={() => {
+                  setMovieCategory("popular");
+                  navigate("/");
+                }}
               >
                 Popular Movies
               </li>
-              {/* <li className="hover:text-indigo-700 cursor-pointer h-full flex items-center text-sm text-gry-800 mx-10 tracking-normal relative">
+              <li className="hover:text-indigo-700 cursor-pointer h-full flex items-center text-sm text-gry-800 mx-10 tracking-normal relative">
                 <span
                   className="ml-2"
                   onClick={() => {
-                    setShouldPersonModalBeOpen((pre) => !pre);
+                    setActor((pre) => !pre);
                   }}
                 >
                   Person
                 </span>
-              </li> */}
-              <li className="hover:text-indigo-700 cursor-pointer h-full flex items-center text-sm text-gry-800 mx-10 tracking-normal relative">
-                <span>Genre</span>
               </li>
+              {/* <li className="hover:text-indigo-700 cursor-pointer h-full flex items-center text-sm text-gry-800 mx-10 tracking-normal relative">
+                <span>Genre</span>
+              </li> */}
               <li
                 className="hover:text-indigo-700 cursor-pointer h-full flex items-center text-sm text-gry-800 mr-10 tracking-normal"
-                onClick={() => setGetMovieBy("now_playing")}
+                onClick={() => {
+                  setMovieCategory("now_playing");
+                  navigate("/");
+                }}
               >
                 Now Playing
               </li>
               <li
                 className="hover:text-indigo-700 cursor-pointer h-full flex items-center text-sm text-gray-800 tracking-normal relative"
-                onClick={() => setGetMovieBy("upcoming")}
+                onClick={() => {
+                  setMovieCategory("upcoming");
+                  navigate("/");
+                }}
               >
                 Upcoming Releases
               </li>
