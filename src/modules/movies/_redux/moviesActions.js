@@ -20,7 +20,6 @@ export const getMovieById = (id, onSuccess) => async (dispatch) => {
   }
 };
 
-
 export const getMoviesByFilter = (params) => async (dispatch) => {
   try {
     const res = await moviesServices.getMoviesByFilter(params);
@@ -31,15 +30,31 @@ export const getMoviesByFilter = (params) => async (dispatch) => {
   }
 };
 
-
-export const searchMovie = (params) => async (dispatch) => {
-  try {dispatch(actions?.startCall("action"))
+export const searchMovie = (params, onSuccess) => async (dispatch) => {
+  try {
+    dispatch(actions?.startCall("action"));
     const res = await moviesServices.searchMovie(params);
 
     dispatch(actions.setAllMovies(res?.data));
-    dispatch(actions?.stopCall("action"))
+    dispatch(actions?.stopCall("action"));
+    onSuccess();
   } catch (error) {
-    dispatch(actions?.startCall("action"))
+    dispatch(actions?.startCall("action"));
+
+    throw new Error(error?.response?.data?.message);
+  }
+};
+
+export const getPerson = (payload, onSuccess) => async (dispatch) => {
+  try {
+    dispatch(actions?.startCall("action"));
+    const res = await moviesServices.getPerson(payload);
+
+    dispatch(actions.setPerson(res?.data));
+    dispatch(actions?.stopCall("action"));
+    onSuccess();
+  } catch (error) {
+    dispatch(actions?.startCall("action"));
 
     throw new Error(error?.response?.data?.message);
   }

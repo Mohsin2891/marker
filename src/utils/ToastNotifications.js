@@ -1,8 +1,6 @@
-import { toast } from 'react-toastify';
-
+import { toast } from "react-toastify";
 // Success Notification
 export const successToast = (message) => {
- 
   toast.success(message, {
     position: "top-right",
     autoClose: 5000,
@@ -11,7 +9,7 @@ export const successToast = (message) => {
     pauseOnHover: true,
     draggable: true,
     progress: undefined,
-    
+
     // Custom styling
     style: { backgroundColor: "green", color: "white" },
   });

@@ -3,6 +3,8 @@ import { Dialog } from "@headlessui/react";
 import { useFormik } from "formik";
 import { IoIosSearch } from "react-icons/io";
 import { searchMovie } from "../_redux/moviesActions";
+import { useNavigate } from "react-router-dom";
+import { getPerson } from "../_redux/moviesActions";
 import {
   UseDispatch,
   shallowEqual,
@@ -10,8 +12,10 @@ import {
   useSelector,
 } from "react-redux";
 
-const SearchModal = ({ isOpen, setIsOpen }) => {
+const PersonFilters = ({ isOpen, setIsOpen }) => {
   const { actionLoading } = useSelector((state) => state.movies);
+
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
@@ -22,14 +26,7 @@ const SearchModal = ({ isOpen, setIsOpen }) => {
     },
     onSubmit: (values) => {
       console.log(values);
-      dispatch(
-        searchMovie(
-          `/search/movie?query=${values?.title}&include_adult=${values?.isAdult}&language=${values?.language}&page=1'`,
-          () => {
-            setIsOpen(false);
-          }
-        )
-      );
+      dispatch(getPerson(values?.title, () => navigate("/person")));
     },
   });
 
@@ -56,7 +53,7 @@ const SearchModal = ({ isOpen, setIsOpen }) => {
           <div className="flex min-h-full items-center justify-center p-4 text-center">
             <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
               <Dialog.Title className="text-lg font-medium leading-6 text-gray-900">
-                Search Movies
+                Search your Actor Info
               </Dialog.Title>
               <form onSubmit={formik.handleSubmit} className="mt-4">
                 <div className="mb-2">
@@ -110,4 +107,4 @@ const SearchModal = ({ isOpen, setIsOpen }) => {
   );
 };
 
-export default SearchModal;
+export default PersonFilters;

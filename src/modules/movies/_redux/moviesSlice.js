@@ -9,6 +9,7 @@ const initialmoviesManagementState = {
   actionLoading: false,
   selectedMovie: null,
   allMovies: [],
+  persons: [],
 };
 
 export const moviesSlice = createSlice({
@@ -35,6 +36,15 @@ export const moviesSlice = createSlice({
     setAllMovies: (state, action) => {
       const { page, results, total_results, total_pages } = action.payload;
       state.allMovies = results;
+      state.page = page;
+      state.totalPages = total_pages;
+      state.totalResults = total_results;
+    },
+
+    setPerson: (state, action) => {
+      const { page, results, total_results, total_pages } = action.payload;
+
+      state.persons = results;
       state.page = page;
       state.totalPages = total_pages;
       state.totalResults = total_results;

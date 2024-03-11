@@ -1,6 +1,13 @@
 import { useState } from "react";
 import logo from "../assets/logo.png";
-export const Navbar = ({getMovieBy ,setGetMovieBy}) => {
+
+import { useDispatch } from "react-redux";
+import { getPerson } from "modules/movies/_redux/moviesActions";
+export const Navbar = ({
+  getMovieBy,
+  setGetMovieBy,
+  setShouldPersonModalBeOpen,
+}) => {
   const [show, setShow] = useState(false);
   const [product, setProduct] = useState(false);
   const [deliverables, setDeliverables] = useState(false);
@@ -17,7 +24,8 @@ export const Navbar = ({getMovieBy ,setGetMovieBy}) => {
           className="bg-gray-800 opacity-50 inset-0 fixed w-full h-full"
           onClick={() => setShow(!show)}
         />
-        <div className="w-64 z-20 absolute left-0 z-40 top-0 bg-white shadow flex-col justify-between transition duration-150 ease-in-out h-full">
+
+        <div className="w-64 absolute left-0 z-40 top-0 bg-white shadow flex-col justify-between transition duration-150 ease-in-out h-full">
           <div className="flex flex-col justify-between h-full">
             <div className="px-6 pt-4">
               <div className="flex items-center justify-between">
@@ -106,7 +114,6 @@ export const Navbar = ({getMovieBy ,setGetMovieBy}) => {
                           />
                         </svg>
                       </div>
-
                     </div>
                   </li>
                 </a>
@@ -369,7 +376,6 @@ export const Navbar = ({getMovieBy ,setGetMovieBy}) => {
                       src="https://tuk-cdn.s3.amazonaws.com/assets/components/boxed_layout/bl_1.png"
                       className="w-8 h-8 rounded-md"
                     />
-                  
                   </div>
                   <ul className="flex">
                     <li className="cursor-pointer text-white pt-5 pb-3">
@@ -416,66 +422,50 @@ export const Navbar = ({getMovieBy ,setGetMovieBy}) => {
         </div>
       </div>
 
-      <nav className="w-full mx-auto bg-white shadow relative z-20">
-        <div className="justify-between container px-6 h-16 flex items-center lg:items-stretch mx-auto">
-          <div className="flex items-center">
-            <div className="mr-10 flex items-center">
+      <nav className="w-full mx-auto bg-white shadow relative z-20 ">
+        <div className="justify-between container   px-6 h-16 flex items-center lg:items-stretch mx-auto">
+          <div className="flex items-center justify-between ">
+            <div className="mr-10 flex items-center ">
               <img src={logo} alt={"Logo Img"} />
               <h3 className="text-base text-gray-800 font-bold tracking-normal leading-tight ml-3 hidden lg:block">
                 TMDB
               </h3>
             </div>
-            <ul className="pr-32 xl:flex hidden items-center h-full">
-              <li className="hover:text-indigo-700 cursor-pointer h-full flex items-center text-sm text-indigo-700 tracking-normal" onClick={()=>setGetMovieBy("popular")}>
-               Popular Movies 
+            <ul className="w-full xl:flex hidden items-center h-full  ">
+              <li
+                className="hover:text-indigo-700 cursor-pointer h-full flex items-center text-sm text-indigo-700 tracking-normal"
+                onClick={() => setGetMovieBy("popular")}
+              >
+                Popular Movies
               </li>
-              <li className="hover:text-indigo-700 cursor-pointer h-full flex items-center text-sm text-gry-800 mx-10 tracking-normal relative">
-                {product ? (
-                  <ul className="bg-white shadow rounded py-1 w-32 left-0 mt-16 -ml-4 absolute  top-0">
-                    <li className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal py-3 hover:bg-indigo-700 px-3 font-normal">
-                      comedy
-                    </li>
-                    <li className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal py-3 hover:bg-indigo-700 px-3 font-normal">
-                     Romantic
-                    </li>
-                    <li className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal py-3 hover:bg-indigo-700 px-3 font-normal">
-                      Action
-                    </li>
-                  </ul>
-                ) : (
-                  ""
-                )}
-                Genres
-                <span className="ml-2" onClick={() => setProduct(!product)}>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="icon icon-tabler icon-tabler-chevron-down"
-                    width={16}
-                    height={16}
-                    viewBox="0 0 24 24"
-                    strokeWidth={1}
-                    stroke="currentColor"
-                    fill="none"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path stroke="none" d="M0 0h24v24H0z" />
-                    <polyline points="6 9 12 15 18 9" />
-                  </svg>
+              {/* <li className="hover:text-indigo-700 cursor-pointer h-full flex items-center text-sm text-gry-800 mx-10 tracking-normal relative">
+                <span
+                  className="ml-2"
+                  onClick={() => {
+                    setShouldPersonModalBeOpen((pre) => !pre);
+                  }}
+                >
+                  Person
                 </span>
+              </li> */}
+              <li className="hover:text-indigo-700 cursor-pointer h-full flex items-center text-sm text-gry-800 mx-10 tracking-normal relative">
+                <span>Genre</span>
               </li>
-              <li className="hover:text-indigo-700 cursor-pointer h-full flex items-center text-sm text-gry-800 mr-10 tracking-normal" onClick={()=>setGetMovieBy("now_playing")}>
-              Now Playing
+              <li
+                className="hover:text-indigo-700 cursor-pointer h-full flex items-center text-sm text-gry-800 mr-10 tracking-normal"
+                onClick={() => setGetMovieBy("now_playing")}
+              >
+                Now Playing
               </li>
-              <li className="hover:text-indigo-700 cursor-pointer h-full flex items-center text-sm text-gray-800 tracking-normal relative" onClick={()=>setGetMovieBy("upcoming")} >
-                
-                 
+              <li
+                className="hover:text-indigo-700 cursor-pointer h-full flex items-center text-sm text-gray-800 tracking-normal relative"
+                onClick={() => setGetMovieBy("upcoming")}
+              >
                 Upcoming Releases
-                  
               </li>
             </ul>
           </div>
-          <div className="h-full xl:flex hidden items-center justify-end">
+          <div className="h-full xl:flex hidden items-center justify-end  ">
             <div className="h-full flex items-center">
               <div className="w-32 pr-16 h-full flex items-center justify-end border-r" />
               <div className="w-full h-full flex">
@@ -502,11 +492,9 @@ export const Navbar = ({getMovieBy ,setGetMovieBy}) => {
                     <div className="animate-ping w-2 h-2 rounded-full bg-red-400 border border-white absolute inset-0 mt-1 mr-1 m-auto" />
                   </div>
                 </div>
-                 
               </div>
             </div>
           </div>
-           
         </div>
       </nav>
       {/* Navigation ends */}

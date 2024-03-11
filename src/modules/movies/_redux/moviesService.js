@@ -16,10 +16,16 @@ export const addMovie = async (payload) => {
     return error;
   }
 };
-export const getMoviesByFilter = async (params)=>{
-  return await axios.get(params)
-}
+export const getMoviesByFilter = async (params) => {
+  return await axios.get(params);
+};
 
-export const searchMovie = async (params)=>{
-  return await axios.get(params)
-}
+export const searchMovie = async (params) => {
+  return await axios.get(params);
+};
+
+export const getPerson = async (payload) => {
+  return await axios.get(
+    `/search/person?query=${payload}&include_adult=true&language=en-US&page=1`
+  );
+};
