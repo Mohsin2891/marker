@@ -1,9 +1,7 @@
-// withLayout.js
 import React from "react";
-import Layout from "./Layout"; // Import the Layout component
+import Layout from "./Layout";
 
 const withLayout = (WrappedComponent) => {
-  // Return a functional component
   return (props) => {
     return (
       <Layout>

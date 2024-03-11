@@ -12,10 +12,7 @@ import MoviesContext from "context/Movies";
 //utility func
 import toTitleCase from "utils/toTitleCase";
 
-const MoviesListing = ({
-  shouldPersonModalBeOpen,
-  setShouldPersonModalBeOpen,
-}) => {
+const MoviesListing = () => {
   const { movieCategory, setMovieCategory, actor, setActor } =
     useContext(MoviesContext);
   const { allMovies, totalPages, totalResults } = useSelector(

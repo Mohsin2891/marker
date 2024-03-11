@@ -11,6 +11,9 @@ const PersonFilters = ({ isOpen, setIsOpen }) => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  //initial values obj
+  // I could have integrated yup logic for resuable components
   const formik = useFormik({
     initialValues: {
       title: "",
@@ -19,6 +22,7 @@ const PersonFilters = ({ isOpen, setIsOpen }) => {
       language: "en-US",
     },
     onSubmit: (values) => {
+      //api to get persons list
       dispatch(
         getPerson(values?.title, () => {
           navigate("/person");
@@ -30,6 +34,7 @@ const PersonFilters = ({ isOpen, setIsOpen }) => {
 
   return (
     <>
+      {/* search Icon */}
       <div className=" flex justify-end items-center">
         <IoIosSearch
           onClick={() => setIsOpen((prev) => !prev)}
@@ -38,6 +43,7 @@ const PersonFilters = ({ isOpen, setIsOpen }) => {
         />
       </div>
 
+      {/* search dialogue */}
       <Dialog
         open={isOpen}
         onClose={() => setIsOpen((prev) => !prev)}

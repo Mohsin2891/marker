@@ -6,21 +6,25 @@ import { addMovie } from "../_redux/moviesService";
 import { errorToast, successToast } from "utils/ToastNotifications";
 
 const CreateMovieDialogue = ({ isOpen, setIsOpen }) => {
+  //initial values
   const initialValues = {
     name: "",
     description: "",
     language: "",
   };
 
+  //yup validation
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("Required"),
     description: Yup.string().required("Required"),
     language: Yup.string().required("Required"),
   });
 
+  //function to hadle api call
   const handleSubmit = async (values, { setSubmitting }) => {
     const res = await addMovie(values);
-
+    // api adds the data to endpoint but I think it doesn't return user defined record with its predefined data.
+    // might be protected on their end
     res?.data?.success
       ? successToast("Movie Added Successfull!")
       : errorToast(res?.data?.status_message);
@@ -37,11 +41,11 @@ const CreateMovieDialogue = ({ isOpen, setIsOpen }) => {
       >
         <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
         <Dialog.Panel className="fixed inset-0 flex items-center justify-center p-4">
-          {/* Adjusted to cover 40% of the screen width and improved UI elements */}
           <div
             className="bg-white rounded-lg shadow-xl mx-auto p-8 space-y-6"
             style={{ width: "40%" }}
           >
+            {/* Dialog Title */}
             <Dialog.Title className="text-xl font-semibold text-gray-900">
               Create a New Movie List
             </Dialog.Title>
@@ -93,7 +97,8 @@ const CreateMovieDialogue = ({ isOpen, setIsOpen }) => {
                     >
                       <option value="">Select a language</option>
                       <option value="en">English</option>
-                      {/* Add more language options as needed */}
+                      <option value="en">japanese</option>
+                      <option value="en">Spanish</option>
                     </Field>
                   </div>
                   <button

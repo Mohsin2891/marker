@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useSelector, shallowEqual, useDispatch } from "react-redux";
+import React from "react";
+import { useDispatch } from "react-redux";
 import { moviesSlice } from "modules/movies/_redux/moviesSlice";
 import { useNavigate } from "react-router-dom";
 const actions = moviesSlice.actions;
@@ -7,19 +7,18 @@ const actions = moviesSlice.actions;
 const MovieCard = ({
   id,
   original_language,
-  original_title,
+
   overview,
   popularity,
   poster,
   release_date,
   title,
-  video,
+
   vote_average,
   vote_count,
-  movie,
 }) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+
   return (
     <div
       className="max-w-sm rounded-lg overflow-hidden shadow-lg bg-white dark:bg-gray-800 cursor-pointer"

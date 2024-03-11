@@ -3,12 +3,7 @@ import { Dialog } from "@headlessui/react";
 import { useFormik } from "formik";
 import { IoIosSearch } from "react-icons/io";
 import { searchMovie } from "../_redux/moviesActions";
-import {
-  UseDispatch,
-  shallowEqual,
-  useDispatch,
-  useSelector,
-} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const SearchModal = ({ isOpen, setIsOpen }) => {
   const { actionLoading } = useSelector((state) => state.movies);
